@@ -14,7 +14,7 @@
     <h1>Jane's Music</h1>
     <div id="waveform"></div>
 
-    <button class="btn btn-default" onclick="wavesurfer.playPause()"><i class="glyphicon glyphicon-play"></i><i class="glyphicon glyphicon-pause"></i></button>
+    <button class="btn btn-default" id="playButton" onclick="wavesurfer.playPause()" disabled><i class="glyphicon glyphicon-play"></i><i class="glyphicon glyphicon-pause"></i></button>
 
     <h3 id="playing"></h3>
     <br>
@@ -45,17 +45,17 @@
     function selectSong(name, url) {
       wavesurfer.load(url);
       $('#playing').html(name);
+      $('#playButton').removeAttr('disabled');
     }
 
     songList.forEach((song) => {
       const { name, url } = song;
       const compressedName = name.split(' ').join('');
 
-      $('.dropdown-menu').append(`<li><a id=${compressedName}>` + name + '</a></li>');
+      $('.dropdown-menu').append(`<li><a id=${compressedName}>${name}</a></li>`);
       $(`#${compressedName}`).click(() => selectSong(name, url));
     });
-
-  })
+  });
 
 </script>
 </html>
