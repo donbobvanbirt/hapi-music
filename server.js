@@ -59,11 +59,30 @@ server.register(Inert, () => {});
 
 server.route({
     method: 'GET',
+    path: '/jane',
+    handler: {
+        file: 'jane.html'
+    }
+});
+
+server.route({
+    method: 'GET',
     path: '/',
     handler: {
         file: 'page.html'
     }
 });
+
+// server.route({
+//     method: 'GET',
+//     path: '/{user?}',
+//     handler: function (request, reply) {
+//         reply({ file: `${encodeURIComponent(request.params.user)}.html` });
+//     }
+//     // handler: {
+//     //     file: `${request.params.user}.html`
+//     // }
+// });
 
 server.start((err) => {
 
