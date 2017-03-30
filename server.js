@@ -69,7 +69,7 @@ server.route({
     method: 'GET',
     path: '/',
     handler: {
-        file: 'page.html'
+        file: 'home.html'
     }
 });
 

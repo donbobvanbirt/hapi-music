@@ -2,27 +2,60 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.3.2/wavesurfer.min.js"></script>
-  <title>Jane</title>
+  <!-- <script type='text/javascript' src="main.js"></script> -->
+  <title>Jane's Music</title>
 </head>
 <body>
-  <h1>Jane's page</h1>
-  <div id="waveform"></div>
-  <button class="btn btn-primary" onclick="wavesurfer.playPause()">
-    <i class="glyphicon glyphicon-play"></i>
-    Play
-  </button>
+  <div class="container">
+    <h1>Jane's Music</h1>
+    <div id="waveform"></div>
+
+    <button class="btn btn-default" onclick="wavesurfer.playPause()"><i class="glyphicon glyphicon-play"></i><i class="glyphicon glyphicon-pause"></i></button>
+
+    <h3 id="playing"></h3>
+    <br>
+    <div class="dropdown">
+      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select song
+      <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+      </ul>
+    </div>
+  </div>
 </body>
+
 <script type="text/javascript">
   const wavesurfer = WaveSurfer.create({
     container: '#waveform',
     waveColor: 'violet',
     progressColor: 'purple'
   });
-  // wavesurfer.load('https://ia902606.us.archive.org/35/items/shortpoetry_047_librivox/song_cjrg_teasdale_64kb.mp3');
-  wavesurfer.load('https://s3.amazonaws.com/musicsamplesbydonovan/10+-+Love+Me+Do+~.mp3');
+
+  const songList = [
+    { name: 'Pygmy-Twylyte', url: 'https://s3.amazonaws.com/musicsamplesbydonovan/02+-+Pygmy-Twylyte.mp3' },
+    { name: 'Love Me Do', url: 'https://s3.amazonaws.com/musicsamplesbydonovan/10+-+Love+Me+Do+~.mp3' },
+    { name: 'Temporary Saint', url: 'https://s3.amazonaws.com/musicsamplesbydonovan/02+-+Temporary+Saint.mp3' },
+    { name: 'Dolphineus', url: 'https://s3.amazonaws.com/musicsamplesbydonovan/04+-+Dolphineus.mp3' },
+  ];
+
+  $(() => {
+    function selectSong(name, url) {
+      wavesurfer.load(url);
+      $('#playing').html(name);
+    }
+
+    songList.forEach((song) => {
+      const { name, url } = song;
+      const compressedName = name.split(' ').join('');
+
+      $('.dropdown-menu').append(`<li><a id=${compressedName}>` + name + '</a></li>');
+      $(`#${compressedName}`).click(() => selectSong(name, url));
+    });
+
+  })
 
 </script>
 </html>
