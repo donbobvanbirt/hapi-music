@@ -67,6 +67,14 @@ server.route({
 
 server.route({
     method: 'GET',
+    path: '/jerry',
+    handler: {
+        file: 'jerry.html'
+    }
+});
+
+server.route({
+    method: 'GET',
     path: '/',
     handler: {
         file: 'home.html'
