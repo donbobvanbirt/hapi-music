@@ -52,7 +52,7 @@
     songList.forEach((song) => {
       const { name, url } = song;
       const compressedName = name.split(' ').join('');
-      console.log('song:', song);
+      // console.log('song:', song);
       $('.dropdown-menu').append(`<li><a id=${compressedName}>${name}</a></li>`);
       $(`#${compressedName}`).click(() => selectSong(name, url));
     });
